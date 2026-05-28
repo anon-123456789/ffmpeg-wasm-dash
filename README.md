@@ -1,3 +1,5 @@
+# This is a fork of https://github.com/ffmpegwasm/ffmpeg.wasm
+Don't expect changes from this fork to go upstream, the changes are mainly to better suit what I personally use ffmpeg.wasm for.
 ---
 <p align="center">
   <a href="#">
