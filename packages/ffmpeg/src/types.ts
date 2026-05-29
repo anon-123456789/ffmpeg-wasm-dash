@@ -72,6 +72,10 @@ export interface FFMessageDeleteDirData {
   path: FFFSPath;
 }
 
+export interface FFMessageGetFileURLData {
+  path: FFFSPath;
+}
+
 export enum FFFSType {
   MEMFS = "MEMFS",
   NODEFS = "NODEFS",
@@ -117,6 +121,7 @@ export type FFMessageData =
   | FFMessageCreateDirData
   | FFMessageListDirData
   | FFMessageDeleteDirData
+  | FFMessageGetFileURLData
   | FFMessageMountData
   | FFMessageUnmountData;
 

@@ -14,6 +14,7 @@ import type {
   FFMessageCreateDirData,
   FFMessageListDirData,
   FFMessageDeleteDirData,
+  FFMessageGetFileURLData,
   FFMessageMountData,
   FFMessageUnmountData,
   CallbackData,
@@ -150,6 +151,18 @@ const deleteDir = ({ path }: FFMessageDeleteDirData): OK => {
   return true;
 };
 
+const getFileURL = ({ path }: FFMessageGetFileURLData) => {
+    const info = ffmpeg.FS.analyzePath(path);
+    if (!info.exists) {
+      console.error("File not found in virtual filesystem:", path);
+      return false;
+    }
+    const rawData = info.object.contents;
+    const blob = new Blob([rawData], { type: 'application/octet-stream' });
+    const url = URL.createObjectURL(blob);
+    return url;
+};
+
 const mount = ({ fsType, options, mountPoint }: FFMessageMountData): OK => {
   const str = fsType as keyof typeof ffmpeg.FS.filesystems;
   const fs = ffmpeg.FS.filesystems[str];
@@ -201,6 +214,9 @@ self.onmessage = async ({
         break;
       case FFMessageType.DELETE_DIR:
         data = deleteDir(_data as FFMessageDeleteDirData);
+        break;
+      case FFMessageType.GET_FILE_URL:
+        data = getFileURL(_data as FFMessageGetFileURLData);
         break;
       case FFMessageType.MOUNT:
         data = mount(_data as FFMessageMountData);

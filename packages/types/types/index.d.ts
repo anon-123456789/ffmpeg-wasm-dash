@@ -81,6 +81,18 @@ export interface FS {
   isFile: (mode: number) => boolean;
   /** mode is a numeric notation of permission, @see [Numeric Notation](https://en.wikipedia.org/wiki/File-system_permissions#Numeric_notation) */
   isDir: (mode: number) => boolean;
+  analyzePath: (path: string) => {
+    isRoot: boolean,
+    exists: boolean,
+    error: Error,
+    name: string,
+    path: any,
+    object: any,
+    parentExists: boolean,
+    parentPath: any,
+    parentObject: any
+    // I'm to lazy to write actual fucking TypeScript, so you'll be seeing a lot of `any`
+  }
   mount: (
     fileSystemType: FSFilesystem,
     data: WorkerFSMountConfig,

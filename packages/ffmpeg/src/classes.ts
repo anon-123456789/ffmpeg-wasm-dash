@@ -72,6 +72,9 @@ export class FFmpeg {
           case FFMessageType.DELETE_DIR:
             this.#resolves[id](data);
             break;
+          case FFMessageType.GET_FILE_URL:
+            this.#resolves[id](data);
+            break;
           case FFMessageType.LOG:
             this.#logEventCallbacks.forEach((f) => f(data as LogEvent));
             break;
@@ -485,4 +488,22 @@ export class FFmpeg {
       undefined,
       signal
     ) as Promise<OK>;
+
+  /**
+   * Get a blob: URL that represents a file.
+   *
+   * @category File System
+   */
+  public getFileURL = (
+    path: string,
+    { signal }: FFMessageOptions = {}
+  ): Promise<string|false> =>
+    this.#send(
+      {
+        type: FFMessageType.GET_FILE_URL,
+        data: { path },
+      },
+      undefined,
+      signal
+    ) as Promise<string|false>;
 }

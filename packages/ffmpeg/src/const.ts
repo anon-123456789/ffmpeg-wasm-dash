@@ -15,6 +15,7 @@ export enum FFMessageType {
   CREATE_DIR = "CREATE_DIR",
   LIST_DIR = "LIST_DIR",
   DELETE_DIR = "DELETE_DIR",
+  GET_FILE_URL = "GET_FILE_URL",
   ERROR = "ERROR",
 
   DOWNLOAD = "DOWNLOAD",
